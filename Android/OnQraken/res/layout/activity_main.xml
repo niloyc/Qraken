@@ -1,0 +1,45 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity" >
+    
+    <LinearLayout
+        android:id="@+id/not_connected_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:visibility="visible">
+	    <ImageView
+	        android:id="@+id/not_connected_icon"
+	        android:layout_width="fill_parent"
+	        android:layout_height="150dp"
+	        android:gravity="center"
+	        android:src="@drawable/qraken_disconnect_icon"
+	        android:contentDescription="@string/not_connected" />
+	    
+	    <TextView
+	        android:id="@+id/not_connected"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:padding="10dip"
+	        android:gravity="center"
+	        android:textSize="20sp"
+	        android:text="@string/not_connected"
+	        android:fontFamily="sans-serif" 
+	        android:textStyle="bold|italic"
+	        android:textAllCaps="true" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/throttle"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center" 
+        android:textSize="35sp" 
+        android:fontFamily="sans-serif"
+        android:textStyle="bold|italic"/>
+
+</LinearLayout>

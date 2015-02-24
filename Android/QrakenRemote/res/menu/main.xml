@@ -1,0 +1,26 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/asd">
+    <item android:id="@+id/connect_device"
+          android:icon="@android:drawable/ic_menu_search"
+          android:title="@string/connect"
+          android:showAsAction="ifRoom|withText">
+			<menu>
+				<item 
+				    android:id="@+id/bt_connect"
+				    android:title="@string/bluetooth"
+				    android:icon="@drawable/stat_sys_tether_bluetooth"/>
+				<item 
+				    android:id="@+id/wifi_connect"
+				    android:title="@string/wifi"
+				    android:icon="@drawable/stat_sys_tether_wifi"/>
+				<item 
+				    android:id="@+id/net_connect"
+				    android:title="@string/internet"
+				    android:icon="@drawable/stat_sys_tether_general"/>
+			</menu>
+	</item>
+	<item
+	    android:id="@+id/pid_tuning"
+	    android:title="@string/pid_tuning"
+	    android:showAsAction="never" />
+</menu>

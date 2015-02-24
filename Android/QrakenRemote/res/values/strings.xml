@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">QrakenRemote</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_connecting">Connecting&#8230;</string>
+    <string name="title_not_connected">Not Connected</string>
+    <string name="title_connected_to">Connected to</string>
+    <string name="not_connected">Disconnected.</string>
+    <string name="bt_not_enabled">Bluetooth was not enabled. Try again.</string>
+    
+    <string name="connect">Connect</string>
+    <string name="bluetooth">Bluetooth</string>
+    <string name="wifi">WiFi</string>
+    <string name="internet">Internet</string>
+    <string name="pid_tuning">PID Tuning</string>
+    
+        <!--  DeviceListActivity -->
+    <string name="scanning">Scanning for devices&#8230;</string>
+    <string name="select_device">Select a device to connect</string>
+    <string name="none_paired">No devices have been paired</string>
+    <string name="none_found">No devices found</string>
+    <string name="title_paired_devices">Paired Devices</string>
+    <string name="title_other_devices">Other Available Devices</string>
+    <string name="button_scan">Scan for devices&#8230;</string>
+    
+    <string name="paired_prefs">com.teamqraken.qrakenremote.PAIRED_PREFS</string>
+    
+    <string name="p_value">kP</string>
+    <string name="i_value">kI</string>
+    <string name="d_value">kD</string>
+    
+    <string name="set_pid">Set</string>
+    <string name="pitch_roll">Pitch &amp; Roll</string>
+    <string name="yaw">Yaw</string>
+
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="yaw_pitch_roll_array">
+        <item>Pitch &amp; Roll</item>
+        <item>Yaw</item>
+    </string-array>
+</resources>

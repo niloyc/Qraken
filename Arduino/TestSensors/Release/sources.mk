@@ -1,0 +1,51 @@
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+ELF_SRCS := 
+O_UPPER_SRCS := 
+O_SRCS := 
+EEP_SRCS := 
+CPP_SRCS := 
+C_UPPER_SRCS := 
+C_SRCS := 
+AR_SRCS := 
+CXX_SRCS := 
+C++_SRCS := 
+CC_SRCS := 
+ELF := 
+C++_DEPS := 
+AR := 
+C_DEPS := 
+CC_DEPS := 
+FLASH_IMAGE := 
+AR_OBJ := 
+CPP_DEPS := 
+LINK_OBJ := 
+EEP := 
+CXX_DEPS := 
+C_UPPER_DEPS := 
+SIZEDUMMY := 
+
+# Every subdirectory with source files must be described here
+SUBDIRS := \
+arduino/core \
+arduino/core/avr-libc \
+. \
+Libraries/itg3200filv05 \
+Libraries/bma180 \
+Libraries/adxl345driver \
+Libraries/Wire/utility \
+Libraries/Wire \
+Libraries/USB_Host_Shield_20 \
+Libraries/Servo/src/sam \
+Libraries/Servo/src/avr \
+Libraries/SPI \
+Libraries/PID_v1 \
+Libraries/MS561101BA \
+Libraries/MPU60X0 \
+Libraries/I2Cdev \
+Libraries/HMC58X3 \
+Libraries/FreeIMU \
+Libraries/EEPROM \
+

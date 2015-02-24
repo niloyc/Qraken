@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">OnQraken</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="title_connecting">Connecting&#8230;</string>
+    <string name="title_not_connected">Not Connected</string>
+    <string name="title_connected_to">Connected to </string>
+    <string name="not_connected">Disconnected</string>
+    <string name="bt_not_enabled">Bluetooth was not enabled. Try again.</string>
+    
+    <string name="connect">Connect</string>
+    <string name="bluetooth">Bluetooth</string>
+    <string name="wifi">WiFi</string>
+    <string name="internet">Internet</string>
+    <string name="pid_tuning">PID Tuning</string>
+    
+    <string name="enable_discovery">Enable Discovery</string>
+    
+
+</resources>

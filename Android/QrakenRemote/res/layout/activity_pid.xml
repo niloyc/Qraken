@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="50dp"
+    android:orientation="vertical" >
+        
+    <RadioGroup
+        android:id="@+id/radioGroup"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal">
+	    <RadioButton android:id="@+id/radio_pitch_roll"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/pitch_roll"
+	        android:checked="true" />
+	    <RadioButton android:id="@+id/radio_yaw"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/yaw" />
+	</RadioGroup>
+        
+    <EditText
+        android:id="@+id/p_value"
+        android:hint="@string/p_value"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal" />
+    <EditText
+        android:id="@+id/i_value"
+        android:hint="@string/i_value"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal" />
+    <EditText
+        android:id="@+id/d_value"
+        android:hint="@string/d_value"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal" />
+    <Button
+        android:id="@+id/set_pid"
+        android:text="@string/set_pid"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:onClick="setPressed" />
+
+</LinearLayout>
