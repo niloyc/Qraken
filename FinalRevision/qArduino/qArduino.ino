@@ -1,15 +1,11 @@
-#include <ADXL345.h>
-#include <bma180.h>
+#include <Wire.h>
 #include <HMC58X3.h>
-#include <ITG3200.h>
 #include <MS561101BA.h>
+#include <SPI.h>
 #include <I2Cdev.h>
 #include <MPU60X0.h>
 #include <EEPROM.h>
-#include <CommunicationUtils.h>
 #include <FreeIMU.h>
-#include <Wire.h>
-#include <SPI.h>
 #include <PID_v1.h>
 #include <Servo.h>
 #include <adk.h>
@@ -19,9 +15,9 @@ USB usb;
 ADK adk(&usb,
     "TeamQraken",     //Manufacturer*
     "Qraken",         //Model*
-    "Test Usb Host Shield",   //Description
+    "ADK",   //Description
     "0.2",            //Version*
-    "www.bradnicolle.com",    //Website
+    "Q",    //Website
     "000772536");       //ID
                   //*Required to be same inside "$android_proj$/res/xml/accessory_filter.xml"
 
@@ -53,28 +49,22 @@ PID myPID[3] = { PID(&yIn, &yOut, &ySet, 0.0, 0.0, 0.0, DIRECT),
          PID(&pIn, &pOut, &pSet, 0.0, 0.0, 0.0, DIRECT),
          PID(&rIn, &rOut, &rSet, 0.0, 0.0, 0.0, DIRECT) };
 
-void setPID(int ypr, int pid, double value);
+void setPID(int ypr, int pid, float value);
 //}
 
 //Motor management{
 void motorManager();
-Servo motorOne, motorTwo, motorThree, motorFour;
+Servo motors[4];
 void killMotors();
-void zeroMotors();
 //}
 
-// Debug/Test variables/functions
-long prevTime;
-
 void setup() {
-
-  Serial.begin(115200);
+  
   Wire.begin();
   delay(5);
 
   mySensor.init(true);
-  Serial.println("Initialised sensor");
-
+  
   //setup initial setpoint
   //TODO: Replace with calibration algorithm
   ySet = 0.0;
@@ -96,30 +86,24 @@ void setup() {
   myPID[0].SetMode(AUTOMATIC);
   myPID[1].SetMode(AUTOMATIC);
   myPID[2].SetMode(AUTOMATIC);
-  Serial.println("Initialised PID");
 
   //attach motors to pins
-  motorOne.attach(2); //pair 1
-  motorTwo.attach(3);
-  motorThree.attach(5); //pair 1
-  motorFour.attach(6);
+  motors[0].attach(2); //pair 1
+  motors[1].attach(3);
+  motors[2].attach(5); //pair 1
+  motors[3].attach(6);
 
-  zeroMotors();
+  motors[0].writeMicroseconds(1060);
+  motors[1].writeMicroseconds(1060);
+  motors[2].writeMicroseconds(1060);
+  motors[3].writeMicroseconds(1060);
 
   if (usb.Init() == -1) {
-    Serial.print("Unable to initialise \n");
-    while (1)
-      ;
+    while (1);
   }
 
   connected = false;
-
   delay(2000);
-  Serial.setTimeout(10); //for faster input reading from serial
-  Serial.println("Starting....");
-
-  //Debugging
-  prevTime = millis();
 }
 
 void loop() {
@@ -128,7 +112,6 @@ void loop() {
   if (adk.isReady()) {
     if (!connected) {
       connected = true;
-      Serial.print("Connected to accessory\n");
     }
 
     uint16_t len = sizeof(msg);
@@ -139,38 +122,25 @@ void loop() {
       double data = (double) *temp / 1000.0;
       switch (msg[0]) {
       case 0:
-        Serial.print("Throttle: ");
         throttle = (int) data;
         throttle = (throttle > 800) ? 800 :
               (throttle < 0) ? 0 : throttle;
         break;
       case 1:
         setPID(SET_YAW_PID,msg[1],data);
-        Serial.print("Yaw: ");
         break;
       case 2:
         setPID(SET_PITCH_PID, msg[1], data);
         setPID(SET_ROLL_PID, msg[1], data);
-        Serial.print("PitchRoll: ");
         break;
       }
-      Serial.println(data);
-    } else {
-
     }
-
   } else {
     if (connected) {
       connected = false;
-      Serial.print("Disconnected from accessory\n");
       killMotors();
     }
   }
-
-  if(Serial.available()>0){
-    throttle = Serial.readString().toInt();
-  }
-
   //observe position, set input
   mySensor.getYawPitchRoll(angles);
 
@@ -189,40 +159,14 @@ void loop() {
 
 void motorManager() {
 
-//  if(throttle<=10){
-//    zeroMotors();
-//    return;
-//  }
-
-
-  motorOne.writeMicroseconds(
+  motors[0].writeMicroseconds(
       (int) (1060 + throttle + ((-yOut / 2) + pOut) / 2));
-  motorTwo.writeMicroseconds(
+  motors[1].writeMicroseconds(
       (int) (1060 + throttle + ((yOut / 2) - rOut) / 2));
-  motorThree.writeMicroseconds(
+  motors[2].writeMicroseconds(
       (int) (1060 + throttle + ((-yOut / 2) - pOut) / 2));
-  motorFour.writeMicroseconds(
+  motors[3].writeMicroseconds(
       (int) (1060 + throttle + ((yOut / 2) + rOut) / 2));
-
-  if(millis()-prevTime>1000){
-    prevTime=millis();
-    Serial.print("Yaw: ");
-    Serial.print(angles[0]);
-    Serial.print("\tPitch: ");
-    Serial.print(angles[1]);
-    Serial.print("\tRoll: ");
-    Serial.print(angles[2]);
-
-    Serial.print("\nMotor1: ");
-    Serial.print(motorOne.readMicroseconds());
-    Serial.print("\tMotor2: ");
-    Serial.print(motorTwo.readMicroseconds());
-    Serial.print("\tMotor3: ");
-    Serial.print(motorThree.readMicroseconds());
-    Serial.print("\tMotor4: ");
-    Serial.println(motorFour.readMicroseconds());
-  }
-
 }
 
 void setPID(int ypr, int pid, double value) {
@@ -239,19 +183,11 @@ void setPID(int ypr, int pid, double value) {
   }
 }
 
-void zeroMotors(){
-  motorOne.writeMicroseconds(1060);
-  motorTwo.writeMicroseconds(1060);
-  motorThree.writeMicroseconds(1060);
-  motorFour.writeMicroseconds(1060);
-}
-
 void killMotors(){
   noInterrupts();
-  motorOne.writeMicroseconds(1060);
-  motorTwo.writeMicroseconds(1060);
-  motorThree.writeMicroseconds(1060);
-  motorFour.writeMicroseconds(1060);
+  for(int i=0;i<4;i++){
+    motors[i].writeMicroseconds(1060);
+  }
   while(1);
 }
 
