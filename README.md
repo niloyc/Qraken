@@ -1,7 +1,7 @@
 # Qraken
 Quadcopter built using android and arduino platform.
 
-#License
+
 The MIT License (MIT)
 =====================
 
